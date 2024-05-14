@@ -1,19 +1,33 @@
 "use client";
 
 import { useSearch } from "@/hooks/useSearch";
-import { useEffect } from "react";
+import { useCallback, useState } from "react";
 
 import Image from "next/image";
 
 export default function Home() {
-  const [result, search] = useSearch("テスト");
+  const [query, setQuery] = useState('');
+  const [result, search] = useSearch(query);
 
-  useEffect(() => {
-    search();
-  }, []);
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        search();
+      }
+    }, [search]
+  );
 
   return (
     <main className="flex min-h-screen flex-col justify-between p-5">
+      <div>
+        <input
+          type="text"
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={onKeyDown}
+          style={{ color: "#000" }}
+        />
+        <button onClick={search}>検索</button>
+      </div>
       <ul className="">
         {result?.items?.map((data) => (
           <li key={data.id} className="p-2">
@@ -24,6 +38,7 @@ export default function Home() {
                   alt={data.volumeInfo.title}
                   width={80}
                   height={140}
+                  style={{ width: "auto", height: "auto" }}
                 />
               </div>
               <div className="pl-1">
