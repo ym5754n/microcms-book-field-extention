@@ -12,16 +12,19 @@ export const useSearch: UseSearch = (keywords) => {
 
   const search = useCallback(() => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${keywords}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setResult(data);
+      .then((res) => {
+        if (res.ok) {
+          res.json().then(data => {
+            setResult(data);
+          })
+        } else {
+          setResult(null);
+        }
       })
-      // .catch((error) => {
-      //   setResult(null);
-      // })
+      .catch(error => {
+        setResult(null);
+      })
   }, [keywords]);
-
-  console.log(result);
 
   return [result, search];
 }

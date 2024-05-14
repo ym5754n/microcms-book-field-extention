@@ -18,7 +18,7 @@ export default function Home() {
   );
 
   return (
-    <main className="flex min-h-screen flex-col justify-between p-5">
+    <main className="flex flex-col justify-between p-5">
       <div>
         <input
           type="text"
@@ -28,26 +28,30 @@ export default function Home() {
         />
         <button onClick={search}>検索</button>
       </div>
-      <ul className="">
-        {result?.items?.map((data) => (
-          <li key={data.id} className="p-2">
-            <div className="flex w-full">
-              <div>
-                <Image
-                  src={data.volumeInfo.imageLinks.smallThumbnail}
-                  alt={data.volumeInfo.title}
-                  width={80}
-                  height={140}
-                  style={{ width: "auto", height: "auto" }}
-                />
+      {result && result.items ? (
+        <ul className="">
+          {result.items.map((data) => (
+            <li key={data.id} className="p-2">
+              <div className="flex w-full">
+                <div>
+                  <Image
+                    src={data.volumeInfo.imageLinks.smallThumbnail}
+                    alt={data.volumeInfo.title}
+                    width={80}
+                    height={140}
+                    style={{ width: "auto", height: "auto" }}
+                  />
+                </div>
+                <div className="pl-1">
+                  <p>title: {data.volumeInfo.title}</p>
+                </div>
               </div>
-              <div className="pl-1">
-                <p>title: {data.volumeInfo.title}</p>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No results.</p>
+      )}
     </main>
   );
 }
