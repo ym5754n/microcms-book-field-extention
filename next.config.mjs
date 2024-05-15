@@ -5,7 +5,6 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'books.google.com',
-        port: '',
       },
     ],
   },
