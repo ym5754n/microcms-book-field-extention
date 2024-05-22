@@ -2,13 +2,13 @@ import { Result } from "@/types/result";
 
 import Book from "./book";
 
-export default function BookList({ result }: { result: Result | null }) {
+export default function BookList({ result, selectData }: { result: Result | null, selectData: any }) {
   return (
     <div>
       {result && result.items ? (
         <ul>
           {result.items.map((data) => (
-            <Book data={data} key={data.id} />
+            <Book data={data} key={data.id} selectData={selectData} />
           ))}
         </ul>
       ) : (
