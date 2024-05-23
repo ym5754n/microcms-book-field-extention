@@ -1,6 +1,8 @@
 import { Item } from '@/types/result';
 import { useEffect, useState, useCallback } from 'react';
 
+import { microcmsUpdateStyle, microcmsPostData } from '@/lib/microcms';
+
 export const useMicrocms = () => {
     const [id, setId] = useState('');
     const [item, setItem] = useState<Item>();
@@ -20,41 +22,9 @@ export const useMicrocms = () => {
     }, []);
 
     const selectData = useCallback((item: Item) => {
-        console.log('selectData');
         setItem(item);
-        microcmsPostData(id);
+        microcmsPostData(id, item);
     }, [id]);
 
     return [item, selectData];
-}
-
-const microcmsUpdateStyle = (id: string) => {
-    window.parent.postMessage(
-        {
-            id: id,
-            action: 'MICROCMS_UPDATE_STYLE',
-            message: {
-                height: 600,
-            }
-        },
-        'https://ym5754n.microcms.io',
-    );
-}
-
-const microcmsPostData = (id: string) => {
-    window.parent.postMessage(
-        {
-            id: id,
-            action: 'MICROCMS_POST_DATA',
-            message: {
-                id: 'hoge-id',
-                title: 'hoge-title',
-                description: 'hoge-description',
-                data: {
-                    id: 'fuga',
-                }
-            }
-        },
-        'https://ym5754n.microcms.io',
-    );
 }
