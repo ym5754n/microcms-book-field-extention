@@ -2,12 +2,12 @@ import Image from "next/image";
 
 import { Item } from "@/types/result";
 
-export default function Book({ data, selectData }: { data: Item, selectData: any }) {
-  const src = data.volumeInfo.imageLinks?.smallThumbnail ?? '/placeholder.png';
-  const title = data.volumeInfo.title;
+export default function Book({ item, selectData }: { item: Item, selectData: any }) {
+  const src = item.volumeInfo.imageLinks?.smallThumbnail ?? '/placeholder.png';
+  const title = item.volumeInfo.title;
 
   return (
-    <li className="p-2" onClick={() => selectData(data)}>
+    <li className="p-2" onClick={() => selectData(item)}>
       <div className="flex w-full">
         <div>
           <Image

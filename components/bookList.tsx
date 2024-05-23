@@ -7,8 +7,8 @@ export default function BookList({ result, selectData }: { result: Result | null
     <div>
       {result && result.items ? (
         <ul>
-          {result.items.map((data) => (
-            <Book data={data} key={data.id} selectData={selectData} />
+          {result.items.map((item) => (
+            <Book item={item} key={item.id} selectData={selectData} />
           ))}
         </ul>
       ) : (

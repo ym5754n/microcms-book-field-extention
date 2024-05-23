@@ -1,8 +1,9 @@
+import { Item } from '@/types/result';
 import { useEffect, useState, useCallback } from 'react';
 
 export const useMicrocms = () => {
     const [id, setId] = useState('');
-    const [data, setData] = useState();
+    const [item, setItem] = useState<Item>();
 
     useEffect(() => {
         window.addEventListener('message', (e) => {
@@ -12,19 +13,19 @@ export const useMicrocms = () => {
                 e.data.action === 'MICROCMS_GET_DEFAULT_DATA'
             ) {
                 setId(e.data.id);
-                setData(e.data.message?.data);
+                setItem(e.data.message?.data);
                 microcmsUpdateStyle(e.data.id);
             }
         });
     }, []);
 
-    const selectData = useCallback((item) => {
+    const selectData = useCallback((item: Item) => {
         console.log('selectData');
-        setData(item);
+        setItem(item);
         microcmsPostData(id);
     }, [id]);
 
-    return [data, selectData];
+    return [item, selectData];
 }
 
 const microcmsUpdateStyle = (id: string) => {
