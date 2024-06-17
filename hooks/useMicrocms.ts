@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 import { microcmsUpdateStyle, microcmsPostData } from '@/lib/microcms';
 
-export const useMicrocms = () => {
+export const useMicrocms = (): [Item | undefined, (item: Item) => void] => {
     const [id, setId] = useState('');
     const [item, setItem] = useState<Item>();
 
