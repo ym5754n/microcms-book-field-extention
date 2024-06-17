@@ -12,7 +12,7 @@ export default function BookList({ result, selectData }: { result: Result | null
           ))}
         </ul>
       ) : (
-        <p>No results.</p>
+        <p className="p-2">No results.</p>
       )}
     </div>
   );
